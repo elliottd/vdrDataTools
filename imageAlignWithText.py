@@ -17,7 +17,7 @@ def detect_alignments(type, source, target, basedir):
     
     ad = alignmentdetector.AlignmentDetector()
     if type == "lexical":
-        alignments = ad.lexical_alignments(source, target, basedir+"clusters")
+        alignments = ad.lexical_alignments(source, target, basedir+"/clusters")
     if type == "wordnet":
         alignments = ad.wordnet_alignments(source, target)
 

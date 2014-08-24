@@ -25,6 +25,7 @@ def dot_to_conll(dotfiles_dir):
     '''
     
     files = sorted(os.listdir(dotfiles_dir))
+    files = sorted([x for x in files if x.endswith(".dot")])
     for file in files:
         dc = dotconverter.DotConverter()
         parsed = dc.parse_dot(dotfiles_dir+"/"+file)

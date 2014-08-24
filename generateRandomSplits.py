@@ -67,7 +67,7 @@ def generate_random_split(image_dir,text_dir,folds,test_ratio,train_ratio):
 
     dotfiles = tempdotfiles[:];
 
-    tmp_dir = tempfile.mkdtemp(dir = '%s/data/tmp' % current_dir)
+    tmp_dir = tempfile.mkdtemp(dir = 'splits/')
 
     while len(testfiles) < testsize :
       instance = randm.choice(dotfiles)
@@ -305,7 +305,7 @@ def generate_spin_split(image_dir, text_dir,folds):
   devfiles = [];
   for f in range(folds):
 
-    tmp_dir = tempfile.mkdtemp(dir = '%s/data/tmp' % current_dir)
+    tmp_dir = tempfile.mkdtemp(dir = 'splits/')
     #spin devfiles in the last fold to trainfile in this fold
     if (f > 1):
       for instance in devfiles:
@@ -509,7 +509,7 @@ def main(argv):
     n = int(args['-n'])
   except KeyError:
     print("Default value of n")
-  subprocess.call('rm -rf data/tmp/*',shell = True)
+  subprocess.call('rm -rf splits/*',shell = True)
   
   try:
     r = int(args['-s'])

@@ -8,11 +8,16 @@ def to_ordered_list(data):
         inst_len = len(instance)-1
         for line in instance:
             line = line.split("\t")
-            s += "%d, " % (int(line[6]))
-
-        s = s[:-2]
+            line = line[6]
+            line = line.strip()
+            line = line.replace("\'","")
+            try:
+              s += "%d, " % (int(line))
+            except:
+              s += "-1, "
 
         s += "]"
+        s = s.replace(", ]","]")
         print s
 
 def load_conll(filename):

@@ -114,6 +114,14 @@ class DotConverter:
         #print data.keys()
         root = ""
         heads = collections.defaultdict(int)
+        reln = 0
+        for k in data.keys():
+          if k.find("->") > 0:
+            reln = 1
+
+        if reln == 0:
+          print "EEK: %s" % f
+            
         for key in data.keys():
             if not key.find("-") > 0:
                 if data[key] == "ROOT":
