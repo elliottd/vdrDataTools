@@ -47,14 +47,13 @@ def generate_random_split(image_dir,text_dir,folds,test_ratio,train_ratio):
   badfiles = open("badfiles").readlines()
   badfiles = [x.replace("\n","") for x in badfiles]
 
-  dotfiles = [x for x in os.listdir(text_dir) if x.endswith(".desc")] 
+  dotfiles = [x for x in os.listdir(image_dir) if x.endswith(".dot")] 
   dotfiles.sort()
   for x in dotfiles:
-    name = x.replace("desc", "conll")
+    name = x.replace("dot", "conll")
     if name in badfiles:
       dotfiles.remove(x)
 
-  dotfiles = [x.replace(".desc",".dot") for x in dotfiles];
   tempdotfiles = dotfiles[:];  
   trainsize = int(math.floor(len(dotfiles)*train))
   testsize = int(math.floor(len(dotfiles)*test))

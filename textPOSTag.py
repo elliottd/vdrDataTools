@@ -3,18 +3,30 @@ import re
 import sys
 import getopt
 import subprocess
+import aux
 
 options = ["-p", "-h", "-a"] # -h is reserved.
-stanford = "stanford-postagger-2012-01-06"
+stanford = "stanford-postagger-full-2012-01-06"
 malt = "maltparser-1.7.2"
 
-def concatenate_text(path, extension, output_file):
+def __select_files(path, dotfiles):
+
+    dots = os.listdir(dotfiles)
+    dots = [x for x in dots if x.endswith("dot")]
+    dots = [x.replace("dot","desc") for x in dots]
+
+    dots = aux.list_to_str(dots, path)
+
+    return dots 
+
+def concatenate_text(path, extension, output_file, dotfilesdir):
     '''
     Concatenate a collection of files with a given extension into
     the output_file.
     '''
     print("cat %s/*.%s ..." % (path, extension))
-    os.system("cat %s/*.%s > %s-tmp" % (path, extension, output_file))
+    dotfiles = __select_files(path, dotfilesdir)
+    os.system("cat %s > %s-tmp" % (dotfiles, output_file))
     destination = open("%s" % (output_file), "w")
     for line in open("%s-tmp" %(output_file)).readlines():
         new_line = re.sub(r'\.(\w)', r'.\n\1', line)
@@ -106,7 +118,7 @@ def main(argv):
     
     text_dir = dir + "/textfiles"
     dotfiles_dir = dir + "/dotfiles"
-    concatenate_text(text_dir, "desc", dir+"/source-strings")
+    concatenate_text(text_dir, "desc", dir+"/source-strings", dotfiles_dir)
     pos_tag(dir, "source-strings")
     files = sorted([x for x in os.listdir(text_dir) if x.endswith(".desc")])
     unfurl_tags(dir+"/source-strings-tagged", files, text_dir)
