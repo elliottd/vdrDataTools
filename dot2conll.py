@@ -81,11 +81,13 @@ class DotConverter:
                 xy = xy.replace("(", "")
                 xy = xy.replace(")", "")
                 xy = xy.split(",")
+                print xy
                 x = xy[0]
                 y = xy[1][1:]
                 centroids[label] = [x,y]
 
         print centroids    
+        print labels
 
         return labels, centroids
     

@@ -50,11 +50,10 @@ def generate_random_split(image_dir,text_dir,folds,test_ratio,train_ratio):
   dotfiles = [x for x in os.listdir(image_dir) if x.endswith(".dot")] 
   dotfiles.sort()
   for x in dotfiles:
-    name = x.replace("desc", "conll")
+    name = x.replace("dot", "conll")
     if name in cycles:
       dotfiles.remove(x)
 
-  dotfiles = [x.replace(".desc",".dot") for x in dotfiles];
   tempdotfiles = dotfiles[:];  
   trainsize = int(math.floor(len(dotfiles)*train))
   testsize = int(math.floor(len(dotfiles)*test))
